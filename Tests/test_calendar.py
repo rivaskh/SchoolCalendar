@@ -23,9 +23,18 @@ class TestCalendar:
         cal = res.create_calendar()
         assert len(cal) == 31*6 
 
-class TestApplyFilters:
+class TestApplyCalendarFilters:
     def test_Apply_Holiday_List_Filter(self):
         holidayList = ['1/5/2017','1/17/2017']
         res = ResourceCalendar(start_date='1/1/2017',end_date='31/1/2017', daily_freq=6, calendar_filters=[{ApplyHolidayList:holidayList}])
         cal = res.create_calendar()
         assert len(cal) == (31*6 - 2) 
+
+    def test_Apply_Monthly_Recurring_Filter(self):
+        monthlyRecurring = [{'day':'Saturday','week':2}]
+        res = ResourceCalendar(start_date='1/1/2017',end_date='31/1/2017', daily_freq=6, calendar_filters=[{MonthlyRecurring:monthlyRecurringing}])
+        cal = res.create_calendar()
+        assert len(cal) == 30
+        
+
+

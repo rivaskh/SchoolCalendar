@@ -14,9 +14,8 @@ def MonthlyRecurring(*args):
         week = recur['week']
         day  = recur['day']
         for month in pd.unique(cal['month']):
-            cal[(cal['month'] == int(month)) & (cal['day'] == day) & (cal['week'] == week 
-
-
-
-
-
+            cal1 = cal[(cal['month'] == month) & (cal['day'] == day)]
+            date_to_be_removed = pd.unique(cal1.index.date)[week - 1]  
+            cal1 = cal1[cal1.index.date == date_to_be_removed]
+            calendar = calendar.drop(cal1.index)
+    return calendar

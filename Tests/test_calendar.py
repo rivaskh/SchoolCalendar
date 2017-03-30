@@ -1,6 +1,6 @@
 import pytest
 from source.resourcecalendar import ResourceCalendar, ResourceCalendarException
-from source.filtermanager import ApplyHolidayList
+from source.filtermanager import ApplyHolidayList,MonthlyRecurring
 
 class TestCalendar:
     def test_Initialize_Calendar_Without_StartDate(self):
@@ -32,9 +32,9 @@ class TestApplyCalendarFilters:
 
     def test_Apply_Monthly_Recurring_Filter(self):
         monthlyRecurring = [{'day':'Saturday','week':2}]
-        res = ResourceCalendar(start_date='1/1/2017',end_date='31/1/2017', daily_freq=6, calendar_filters=[{MonthlyRecurring:monthlyRecurringing}])
+        res = ResourceCalendar(start_date='1/1/2017',end_date='31/1/2017', daily_freq=6, calendar_filters=[{MonthlyRecurring:monthlyRecurring}])
         cal = res.create_calendar()
-        assert len(cal) == 30
+        assert len(cal) == 180 
         
 
 

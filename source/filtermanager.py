@@ -1,6 +1,6 @@
 import pandas as pd
 
-def ApplyHolidayList(*args):
+def HolidayList(*args):
     calendar = args[0]
     holidayList = args[1]
     cal = calendar[calendar.index.isin(holidayList)]
@@ -18,4 +18,13 @@ def MonthlyRecurring(*args):
             date_to_be_removed = pd.unique(cal1.index.date)[week - 1]  
             cal1 = cal1[cal1.index.date == date_to_be_removed]
             calendar = calendar.drop(cal1.index)
+    return calendar
+
+def WeeklyRecurring(*args):
+    calendar = args[0]
+    days = args[1]
+    cal = pd.DataFrame({'date':calendar.index,'day':pd.Series(calendar.index).dt.weekday_name}).set_index(['date'])
+    for day in days:
+        dates_to_be_removed = cal[cal['day'] == day]
+        calendar = calendar.drop(dates_to_be_removed.index)
     return calendar

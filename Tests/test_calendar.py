@@ -6,12 +6,12 @@ class TestCalendar:
     def test_Initialize_Calendar_Without_StartDate(self):
         with pytest.raises(ResourceCalendarException) as excinfo:
             cal =  ResourceCalendar()
-        excinfo.match("No Start Date")
+        excinfo.match("expecting start_date")
         
     def test_Initialize_Calendar_Without_EndDate(self):
         with pytest.raises(ResourceCalendarException) as excinfo:
             cal = ResourceCalendar(start_date='1/1/2017')
-        excinfo.match("No End Date")
+        excinfo.match("expecting end_date")
 
     def test_Initalize_Calendar_With_Start_And_EndDate(self):
         res = ResourceCalendar(start_date='1/1/2017',end_date='31/1/2017')

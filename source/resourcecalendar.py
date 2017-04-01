@@ -8,9 +8,9 @@ class ResourceCalendarException(Exception):
 class ResourceCalendar:
     def __init__(self, **kwargs):
         if "start_date" not in kwargs:
-            raise ResourceCalendarException("No Start Date")
+            raise ResourceCalendarException("expecting start_date")
         if "end_date" not in kwargs:
-            raise ResourceCalendarException("No End Date")
+            raise ResourceCalendarException("expecting end_date")
 
         self.start_date = kwargs['start_date']
         self.end_date = kwargs['end_date']
@@ -23,7 +23,7 @@ class ResourceCalendar:
             print (kwargs['calendar_filters'])
             self.calendar_filters = kwargs['calendar_filters'] 
 
-        self.calendar = []
+        self.calendar = pd.DataFrame()
 
     def __len__(self):
         return len(self.calendar.index)
@@ -39,4 +39,22 @@ class ResourceCalendar:
                 self.calendar = fltr(self.calendar, fltrdict[fltr])
         return self.calendar
 
+    def append_value(self, **kwargs):
+        if 'resource_name' not in kwargs:
+            raise ResourceCalendarException("expecting resource_name")
+        if 'date' not in kwargs:
+            raise ResourceCalendarException("expecting date")
+        if 'resource_value' not in kwargs:
+            raise ResourceCalendarException("expecting resource_value")
+        if self.calendar.empty:
+            raise ResourceCalendarException("need to call calendar_create()")
+            
+        res_name = kwargs['resource_name']
+        res_value = kwargs['resource_value']
+        append_date = kwargs['date']
+        self.calendar.at[pd.Timestamp(append_date),res_name].append(res_value)
+        return self.calendar.at[pd.Timestamp(append_date), res_name]
 
+
+    def get_value(self, **kwargs):
+        pass

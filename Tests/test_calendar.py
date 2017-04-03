@@ -28,7 +28,7 @@ class TestApplyCalendarFilters:
         holidayList = ['1/5/2017','1/17/2017']
         res = ResourceCalendar(start_date='1/1/2017',end_date='31/1/2017', daily_freq=6, calendar_filters=[{HolidayList:holidayList}])
         cal = res.create_calendar()
-        assert len(cal) == (31*6 - 2) 
+        assert len(cal) == (31*6 - 12) 
 
     def test_Apply_Monthly_Recurring_Filter(self):
         monthlyRecurring = [{'day':'Saturday','week':2}]

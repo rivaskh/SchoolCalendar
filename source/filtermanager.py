@@ -2,8 +2,9 @@ import pandas as pd
 
 def HolidayList(*args):
     calendar = args[0]
-    holidayList = args[1]
-    cal = calendar[calendar.index.isin(holidayList)]
+    holidayList = [pd.Timestamp(x).date() for x in args[1]]
+    cal = pd.DataFrame({'date':calendar.index, 'holiday':pd.Series(calendar.index.date).isin(holidayList)}).set_index(['date'])
+    cal = cal[cal.holiday == True]
     return calendar.drop(cal.index)
 
 def MonthlyRecurring(*args):

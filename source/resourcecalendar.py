@@ -58,3 +58,6 @@ class ResourceCalendar:
 
     def get_value(self, **kwargs):
         pass
+
+    def assign_resources(self, *args):
+        pass

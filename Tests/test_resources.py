@@ -31,3 +31,4 @@ class TestCalendarResource:
         res.create_calendar()
         new_value = res.append_value(date='1/5/2017 01:00:00', resource_name='Teacher', resource_value='A')
         assert new_value == ['A']
+
